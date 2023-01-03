@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
+  height: 100%;
 `;
 
 export const PerfilPictureCircle = styled.Image`
@@ -25,6 +26,6 @@ export const SubTitle = styled.Text`
 
 export const HeaderNav = styled.View`
   width: 100%;
-  height: 60px;
+  height: 9%;
   background-color: lavender;
 `;

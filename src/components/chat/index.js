@@ -46,9 +46,11 @@ const ChatFeedAndSender = () => {
   );
 };
 
-export const Chat = () => {
+export const Chat = ({navigation, route}) => {
   const [message, setMessage] = useState('');
   const {setMessages} = useContext(AppStateContext);
+
+  const {name, img} = route.params.user;
 
   const KEYBOARD_AVOIDING_BEHAVIOR = Platform.select({
     ios: 'padding',
@@ -120,11 +122,11 @@ export const Chat = () => {
         <BoxHeader>
           <PerfilPictureCircle
             source={{
-              uri: 'https://m.media-amazon.com/images/M/MV5BZTlhM2NmOTctMGNiZS00ZjUwLTkzM2EtNzdjNTU1ZWI3Y2Q1XkEyXkFqcGdeQXVyMTExNzkxOTY@._V1_.jpg',
+              uri: img,
             }}
           />
           <View>
-            <TextName>Gustavo</TextName>
+            <TextName>{name}</TextName>
             <Text>@Polos</Text>
           </View>
         </BoxHeader>

@@ -9,9 +9,9 @@ import React, {useState} from 'react';
 import {FlatList, View} from 'react-native';
 
 import {BoxRwContact} from './style';
-const ContactRow = ({user}) => {
+const ContactRow = ({user, navigation}) => {
   return (
-    <BoxRwContact>
+    <BoxRwContact onPress={() => navigation.navigate('Profile', {user})}>
       <PerfilPictureCircle
         source={{
           uri: user?.img,
@@ -24,7 +24,7 @@ const ContactRow = ({user}) => {
     </BoxRwContact>
   );
 };
-export const Contacts = () => {
+export const Contacts = ({navigation}) => {
   const [users, setUsers] = useState([
     {
       name: 'Elon Musk',
@@ -47,7 +47,9 @@ export const Contacts = () => {
       <HeaderNav />
       <FlatList
         data={users}
-        renderItem={user => <ContactRow user={user?.item} />}
+        renderItem={user => (
+          <ContactRow user={user?.item} navigation={navigation} />
+        )}
       />
     </Container>
   );
