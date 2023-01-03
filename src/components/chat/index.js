@@ -11,16 +11,8 @@ import {
   FlatList,
 } from 'react-native';
 import {AppStateContext} from '../../context';
-import {Container, PerfilPictureCircle} from '../global/style';
-import {
-  Box,
-  TextMessage,
-  BoxHeader,
-  TextName,
-  TextNick,
-  ContainerMessage,
-  TextHora,
-} from './style';
+import {Container, PerfilPictureCircle, TextName} from '../global/style';
+import {Box, TextMessage, BoxHeader, ContainerMessage, TextHora} from './style';
 
 const ChatFeedAndSender = () => {
   let refList = useRef(null);
@@ -106,6 +98,7 @@ export const Chat = () => {
       backgroundColor: 'white',
     },
   });
+
   const handleClick = () => {
     var str = message.replace(/( ){2,}/g, '$1');
     function isSameAnswer(el, index, arr) {
@@ -115,21 +108,24 @@ export const Chat = () => {
 
       return true;
     }
-    console.log(str);
-
     if (str.length > 0 && str.split().every(isSameAnswer)) {
       setMessages(prev => [...prev, {message, type: 'send', date: new Date()}]);
       setMessage('');
     }
   };
+
   return (
     <Container>
       <Box heigth border>
         <BoxHeader>
-          <PerfilPictureCircle source={require('../../public/perfil.jpg')} />
+          <PerfilPictureCircle
+            source={{
+              uri: 'https://m.media-amazon.com/images/M/MV5BZTlhM2NmOTctMGNiZS00ZjUwLTkzM2EtNzdjNTU1ZWI3Y2Q1XkEyXkFqcGdeQXVyMTExNzkxOTY@._V1_.jpg',
+            }}
+          />
           <View>
-            <TextName>Lauane</TextName>
-            <Text>@Laus2</Text>
+            <TextName>Gustavo</TextName>
+            <Text>@Polos</Text>
           </View>
         </BoxHeader>
       </Box>

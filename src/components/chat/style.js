@@ -31,13 +31,6 @@ export const BoxHeader = styled.View`
   margin-left: 12px;
 `;
 
-export const TextName = styled.Text`
-  font-size: 15px;
-  font-weight: bold;
-  color: black;
-  margin-left: 12px;
-`;
-
 export const TextHora = styled.Text`
   font-size: 10px;
   position: absolute;
