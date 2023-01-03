@@ -1,244 +1,158 @@
-import React, {useRef, useState} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import React, {Fragment, useContext, useRef, useState} from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
+import {AppStateContext} from '../../context';
 import {Container, PerfilPictureCircle} from '../global/style';
 import {
   Box,
-  ContainerChat,
-  ContainerMessageRecive,
-  ContainerMessageSend,
   TextMessage,
   BoxHeader,
   TextName,
   TextNick,
+  ContainerMessage,
+  TextHora,
 } from './style';
 
-export const Chat = () => {
+const ChatFeedAndSender = () => {
   let refList = useRef(null);
+  const {messages} = useContext(AppStateContext);
+  return (
+    <Fragment>
+      <FlatList
+        ref={ref => (refList = ref)}
+        onContentSizeChange={() => refList.scrollToEnd()}
+        data={messages}
+        renderItem={({item}) => {
+          var horas = item?.date?.getHours();
+          var minutos = item?.date?.getMinutes();
+          if (item?.type === 'recive') {
+            return (
+              <ContainerMessage recive key={Math.random()}>
+                <TextMessage color="black">{item?.message}</TextMessage>
+                <TextHora>{`${horas}:${minutos}`}</TextHora>
+              </ContainerMessage>
+            );
+          }
+          return (
+            <ContainerMessage key={Math.random()}>
+              <TextMessage color="white">{item?.message}</TextMessage>
+              <TextHora>{`${horas}:${minutos}`}</TextHora>
+            </ContainerMessage>
+          );
+        }}
+      />
+    </Fragment>
+  );
+};
 
-  const [messages, setMessages] = useState([
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'recive'},
-    {message: 'Ola, Tudo?', type: 'send'},
-    {
-      message: 'Ola, Tudo? vamos nos ver hoje xxxxxxxxxxxxxxxxxxxx',
-      type: 'recive',
-    },
-  ]);
+export const Chat = () => {
+  const [message, setMessage] = useState('');
+  const {setMessages} = useContext(AppStateContext);
 
+  const KEYBOARD_AVOIDING_BEHAVIOR = Platform.select({
+    ios: 'padding',
+    android: 'height',
+  });
+
+  const styles = StyleSheet.create({
+    container: {
+      marginTop: 16,
+      marginHorizontal: 16,
+    },
+    scrollViewContainer: {
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+      top: 10,
+    },
+    sendButton: {
+      backgroundColor: 'black',
+      color: 'white',
+      height: 40,
+      width: 70,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 20,
+      marginRight: 5,
+    },
+    messageTextInputContainer: {
+      justifyContent: 'flex-end',
+      paddingHorizontal: 5,
+      paddingVertical: 5,
+      alignItems: 'center',
+      flexDirection: 'row',
+      backgroundColor: 'white',
+    },
+    messageTextInput: {
+      flex: 1,
+      minHeight: 40,
+      maxHeight: 90,
+      paddingHorizontal: 12,
+      fontSize: 17,
+      paddingTop: 8,
+      marginHorizontal: 5,
+      backgroundColor: '#F6F7FD',
+      borderRadius: 10,
+    },
+    chatBoxInput: {
+      backgroundColor: 'white',
+    },
+  });
+  const handleClick = () => {
+    var str = message.replace(/( ){2,}/g, '$1');
+    function isSameAnswer(el, index, arr) {
+      if (el === ' ') {
+        return false;
+      }
+
+      return true;
+    }
+    console.log(str);
+
+    if (str.length > 0 && str.split().every(isSameAnswer)) {
+      setMessages(prev => [...prev, {message, type: 'send', date: new Date()}]);
+      setMessage('');
+    }
+  };
   return (
     <Container>
-      <Box>
+      <Box heigth border>
         <BoxHeader>
           <PerfilPictureCircle source={require('../../public/perfil.jpg')} />
           <View>
-            <TextName>Luiz Fernando</TextName>
-            <TextNick>@F2Luiz</TextNick>
+            <TextName>Lauane</TextName>
+            <Text>@Laus2</Text>
           </View>
         </BoxHeader>
       </Box>
-      <ContainerChat>
-        <ScrollView
-          ref={ref => (refList = ref)}
-          onContentSizeChange={() => refList.scrollToEnd({animated: true})}>
-          {messages.map(item => {
-            if (item?.type === 'recive') {
-              return (
-                <ContainerMessageSend key={Math.random()}>
-                  <TextMessage color="white">{item?.message}</TextMessage>
-                </ContainerMessageSend>
-              );
-            }
-            return (
-              <ContainerMessageRecive key={Math.random()}>
-                <TextMessage color="black">{item?.message}</TextMessage>
-              </ContainerMessageRecive>
-            );
-          })}
-        </ScrollView>
-      </ContainerChat>
-      <Box>
-        <Text>Luiz</Text>
-      </Box>
+      <ChatFeedAndSender />
+      <KeyboardAvoidingView
+        behavior={KEYBOARD_AVOIDING_BEHAVIOR}
+        keyboardVerticalOffset={76}>
+        <SafeAreaView style={styles.chatBoxInput}>
+          <View style={styles.messageTextInputContainer}>
+            <TextInput
+              style={styles.messageTextInput}
+              placeholder="Digite sua mensagem..."
+              placeholderTextColor={'black'}
+              multiline
+              value={message}
+              onChangeText={text => setMessage(text)}
+            />
+            <TouchableOpacity style={styles.sendButton} onPress={handleClick}>
+              <Text style={{color: 'white'}}>Enviar</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };

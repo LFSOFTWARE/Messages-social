@@ -3,32 +3,19 @@ import styled from 'styled-components';
 export const Box = styled.View`
   width: 100%;
   height: 10%;
+  background-color: white;
+  min-height: 60px;
 `;
 
-export const ContainerChat = styled.View`
-  background-color: #f6f7fd;
-  height: 80%;
-`;
-
-export const ContainerMessageSend = styled.View`
+export const ContainerMessage = styled.View`
   width: 80%;
   height: auto;
   min-height: 30px;
-  background-color: #e65a0d;
-  margin: 10px 0;
-  margin-left: 15%;
+  background-color: ${props => (props.recive ? 'white' : '#e65a0d')};
+  margin: 5px 0;
+  margin-left: ${props => (props.recive ? '3%' : '15%')};
   border-radius: 10px;
   padding: 10px;
-`;
-export const ContainerMessageRecive = styled.View`
-  width: 80%;
-  height: auto;
-  min-height: 30px;
-  background-color: #fefffe;
-  margin: 10px 0;
-  border-radius: 10px;
-  padding: 10px;
-  margin-left: 3%;
 `;
 
 export const TextMessage = styled.Text`
@@ -51,4 +38,10 @@ export const TextName = styled.Text`
   margin-left: 12px;
 `;
 
-export const TextNick = styled.Text``;
+export const TextHora = styled.Text`
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-weight: 700;
+`;
