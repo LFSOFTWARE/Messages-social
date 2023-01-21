@@ -13,6 +13,7 @@ import {Contacts} from './src/components/contacts';
 import {AppStateProvider} from './src/context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Login} from './src/components/login';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,14 +21,19 @@ const App = () => {
   return (
     <NavigationContainer>
       <AppStateProvider>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
-            name="Home"
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Contacts"
             component={Contacts}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Profile"
+            name="Chat"
             component={Chat}
             options={{headerShown: false}}
           />

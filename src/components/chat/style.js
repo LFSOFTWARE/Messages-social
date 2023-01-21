@@ -35,6 +35,6 @@ export const TextHora = styled.Text`
   font-size: 10px;
   position: absolute;
   right: 5px;
-  bottom: 5px;
+  bottom: 3px;
   font-weight: 700;
 `;

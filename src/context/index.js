@@ -11,8 +11,8 @@ export const AppStateProvider = props => {
       date: new Date(),
     },
   ]);
-
-  const contextValue = {messages, setMessages};
+  const [user, setUser] = useState(null);
+  const contextValue = {messages, setMessages, user, setUser};
 
   return (
     <AppStateContext.Provider value={contextValue}>
